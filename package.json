@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "format":"prettier .",
-    "format:check":"npm run format -- --check",
-    "format:fix":"npm run format -- --write",
+    "format": "prettier .",
+    "format:check": "npm run format -- --check",
+    "format:fix": "npm run format -- --write",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +23,10 @@
   "homepage": "https://github.com/harshit-8080/swiggy-auth-service#readme",
   "devDependencies": {
     "@types/node": "^20.5.9",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/parser": "^6.6.0",
+    "eslint": "^8.48.0",
+    "eslint-config-prettier": "^9.0.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
     "ts-node": "^10.9.1",
