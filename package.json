@@ -22,12 +22,19 @@
     "url": "https://github.com/harshit-8080/swiggy-auth-service/issues"
   },
   "homepage": "https://github.com/harshit-8080/swiggy-auth-service#readme",
+  "lint-staged": {
+    "*.ts": [
+      "prettier --check",
+      "eslint --max-warnings=0"
+    ]
+  },
   "devDependencies": {
     "@types/node": "^20.5.9",
     "@typescript-eslint/eslint-plugin": "^6.6.0",
     "@typescript-eslint/parser": "^6.6.0",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
+    "lint-staged": "^14.0.1",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3",
     "ts-node": "^10.9.1",

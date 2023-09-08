@@ -9,7 +9,8 @@
 
 ## GIT HOOK SETUP
 
-- npm i -D husky   
-- npx husky install  
+- npm i -D husky
+- npx husky install
 - npm pkg set scripts.prepare="huskt install"
 - npx husky add .husky/pre-commit "npm run lint"
+- npm i -D lint-staged
