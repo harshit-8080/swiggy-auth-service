@@ -6,3 +6,10 @@
 - npx tsc --init
 - npm install --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint typescript
 - npm i -D eslint-config-prettier
+
+## GIT HOOK SETUP
+
+- npm i -D husky   
+- npx husky install  
+- npm pkg set scripts.prepare="huskt install"
+- npx husky add .husky/pre-commit "npm run lint"

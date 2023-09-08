@@ -9,7 +9,8 @@
     "format:fix": "npm run format -- --write",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "huskt install"
   },
   "repository": {
     "type": "git",
