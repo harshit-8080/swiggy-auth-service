@@ -14,3 +14,5 @@
 - npm pkg set scripts.prepare="huskt install"
 - npx husky add .husky/pre-commit "npm run lint"
 - npm i -D lint-staged
+
+## App. Config Setup
