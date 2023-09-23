@@ -1,6 +1,7 @@
-import express, { Request, Response } from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import { HttpError } from 'http-errors';
+import createError from 'http-errors';
 import { logger } from './config/logger';
 
 const app = express();
@@ -8,11 +9,16 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Welcome to auth service');
-});
+app.get(
+  '/test/error',
+  async (_req: Request, _res: Response, next: NextFunction) => {
+    const err = createError(401, 'Please check your access ');
+    return next(err);
+  },
+);
 
-app.use((err: HttpError, req: Request, res: Response) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
   logger.error(err.message);
   res.status(err.statusCode).json({
     name: err.name,
