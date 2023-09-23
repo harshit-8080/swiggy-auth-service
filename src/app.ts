@@ -9,6 +9,9 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get('/', async (req: Request, res: Response) => {
+  return res.status(200).json({ response: 'Home Route' });
+});
 app.get(
   '/test/error',
   async (_req: Request, _res: Response, next: NextFunction) => {
