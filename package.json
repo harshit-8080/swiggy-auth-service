@@ -11,8 +11,7 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest --runInBand",
-    "test:watch": "jest --watch --runInBand",
-    "prepare": "huskt install"
+    "test:watch": "jest --watch --runInBand"
   },
   "repository": {
     "type": "git",
