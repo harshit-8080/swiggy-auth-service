@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', async (req: Request, res: Response) => {
-  return res.status(200).json({ response: 'Home Route' });
+  return res.status(200).json({ response: 'Home RouteE' });
 });
 app.get(
   '/test/error',

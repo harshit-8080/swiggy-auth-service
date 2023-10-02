@@ -16,3 +16,7 @@
 - npm i -D lint-staged
 
 ## App. Config Setup
+
+## Docker Run
+
+- docker run --rm -it -v $(pwd):/usr/src/app -v /usr/src/app/node_modules --env-file $(pwd)/.env -p 3000:3000 -e NODE_ENV=development auth-service:dev
