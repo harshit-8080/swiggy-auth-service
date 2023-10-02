@@ -1,4 +1,7 @@
 .env
+.env.prod
+.env.dev
+.env.test
 
 dist
 build
