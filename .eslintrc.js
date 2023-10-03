@@ -16,5 +16,6 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/no-empty-function': 'warn',
     'arrow-body-style': ['error', 'always'],
+    '@typescript-eslint/no-explicit-any': 'off',
   },
 };

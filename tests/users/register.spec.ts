@@ -73,6 +73,9 @@ describe('POST /auth/register', () => {
       const users = await userRespository.find();
 
       expect(users).toHaveLength(1);
+      expect(users[0].firstName).toEqual(userData.firstName);
+      expect(users[0].lastName).toEqual(userData.lastName);
+      expect(users[0].email).toEqual(userData.email);
     });
   });
 });
