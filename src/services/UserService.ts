@@ -3,6 +3,7 @@ import { User } from '../entity/User';
 import { CreateUser } from '../types';
 import { Repository } from 'typeorm';
 import { Roles } from '../constants';
+import bcrypt from 'bcrypt';
 
 export class UserService {
   constructor(private userRepository: Repository<User>) {
@@ -10,12 +11,22 @@ export class UserService {
   }
 
   async create({ firstName, lastName, email, password }: CreateUser) {
+    // hash the password
+    const saltRound: number = 10;
+    const hashedPassword: string = await bcrypt.hash(password, saltRound);
+    const checkForDuplicateUser = await this.userRepository.findOne({
+      where: { email },
+    });
+    if (checkForDuplicateUser) {
+      const err = createHttpError(401, 'User Already Exists');
+      throw err;
+    }
     try {
       return await this.userRepository.save({
         firstName,
         lastName,
         email,
-        password,
+        password: hashedPassword,
         role: Roles.CUSTOMER,
       });
     } catch (error) {
