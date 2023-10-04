@@ -102,5 +102,26 @@ describe('POST /auth/register', () => {
       expect(users[0]).toHaveProperty('role');
       expect(users[0].role).toBe(Roles.CUSTOMER);
     });
+
+    it('should store hash password in database', async () => {
+      // Arrange
+      const userData = {
+        firstName: 'Harshit',
+        lastName: 'Raj',
+        email: 'harshit.new71@gmail.com',
+        password: 'secret@123',
+      };
+
+      // Act
+      await request(app).post('/auth/register').send(userData);
+
+      // Assert
+      const userRespository = connection.getRepository(User);
+      const users = await userRespository.find();
+
+      expect(users[0].password).not.toBe(userData.password);
+      expect(users[0].password).toHaveLength(60);
+      expect(users[0].password).toMatch(/^\$2b\$\d+\$/);
+    });
   });
 });

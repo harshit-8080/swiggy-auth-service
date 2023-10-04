@@ -24,3 +24,6 @@
 ## typeorm setup
 
 - npx typeorm init --database postgres
+
+## Docker PostgreSQL
+-  docker run --rm --name mernpg-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v projectpgdata:/var/lib/postgresql/data -p 5433:5432 -d postgres
