@@ -123,5 +123,26 @@ describe('POST /auth/register', () => {
       expect(users[0].password).toHaveLength(60);
       expect(users[0].password).toMatch(/^\$2b\$\d+\$/);
     });
+
+    it('should return 400 for duplicate email', async () => {
+      // Arrange
+      const userData = {
+        firstName: 'Harshit',
+        lastName: 'Raj',
+        email: 'harshit.new71@gmail.com',
+        password: 'secret@123',
+      };
+
+      const userRespository = connection.getRepository(User);
+      await userRespository.save({ ...userData, role: Roles.CUSTOMER });
+
+      // Act
+      const response = await request(app).post('/auth/register').send(userData);
+      const users = await userRespository.find();
+
+      // Assert
+      expect(response.statusCode).toEqual(401);
+      expect(users).toHaveLength(1);
+    });
   });
 });

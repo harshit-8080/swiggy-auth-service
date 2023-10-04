@@ -14,7 +14,13 @@ export class UserService {
     // hash the password
     const saltRound: number = 10;
     const hashedPassword: string = await bcrypt.hash(password, saltRound);
-
+    const checkForDuplicateUser = await this.userRepository.findOne({
+      where: { email },
+    });
+    if (checkForDuplicateUser) {
+      const err = createHttpError(401, 'User Already Exists');
+      throw err;
+    }
     try {
       return await this.userRepository.save({
         firstName,
