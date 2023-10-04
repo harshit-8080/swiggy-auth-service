@@ -2,6 +2,7 @@ import { Logger } from 'winston';
 import { UserService } from '../services/UserService';
 import { RegisterUser } from '../types';
 import { Response, NextFunction } from 'express';
+import { validationResult } from 'express-validator';
 
 export class AuthController {
   constructor(
@@ -12,6 +13,12 @@ export class AuthController {
   }
 
   async register(req: RegisterUser, res: Response, next: NextFunction) {
+    // validate request body
+    const result = validationResult(req);
+    if (!result.isEmpty()) {
+      res.status(400).json({ errors: result.array() });
+    }
+
     const { firstName, lastName, email, password } = req.body;
 
     this.logger.debug('New Request to Create User', {
@@ -20,7 +27,6 @@ export class AuthController {
       email,
       password: '*******',
     });
-
     try {
       const user = await this.userService.create({
         firstName,
