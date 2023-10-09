@@ -163,8 +163,6 @@ describe('POST /auth/register', () => {
 
       const cookies = response.headers['set-cookie'] || [];
 
-      console.log(cookies);
-
       cookies.forEach((cookie: string) => {
         if (cookie.startsWith('accessToken=')) {
           accessToken = cookie.split(';')[0].split('=')[1];
