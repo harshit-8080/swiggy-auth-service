@@ -13,6 +13,8 @@ export class AuthController {
   }
 
   async register(req: RegisterUser, res: Response, next: NextFunction) {
+    console.log('Authentication.....');
+
     // validate request body
     const result = validationResult(req);
     if (!result.isEmpty()) {
