@@ -13,8 +13,6 @@ export class AuthController {
   }
 
   async register(req: RegisterUser, res: Response, next: NextFunction) {
-    console.log('Authentication.....');
-
     // validate request body
     const result = validationResult(req);
     if (!result.isEmpty()) {
@@ -38,6 +36,23 @@ export class AuthController {
       });
 
       this.logger.info('New User created successfully', { id: user.id });
+
+      const accessToken = 'dhsjudhskjddhsjhd';
+      const refreshToken = 'dhsjudhskjddhsjhd';
+
+      res.cookie('accessToken', accessToken, {
+        domain: 'localhost',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60,
+        httpOnly: true,
+      });
+
+      res.cookie('refreshToken', refreshToken, {
+        domain: 'localhost',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60 * 24 * 365,
+        httpOnly: true,
+      });
 
       res.status(201).json();
     } catch (error) {
