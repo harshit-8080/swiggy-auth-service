@@ -13,6 +13,7 @@ const {
   DB_PASSWORD,
   DB_NAME,
   NODE_ENV,
+  REFRESH_SECRET_KEY,
 } = process.env;
 
 export const CONFIG = {
@@ -25,4 +26,5 @@ export const CONFIG = {
   DB_PASSWORD,
   DB_NAME,
   NODE_ENV,
+  REFRESH_SECRET_KEY,
 };
