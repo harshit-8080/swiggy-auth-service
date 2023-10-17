@@ -30,3 +30,8 @@
 - docker run --rm --name mernpg-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v projectpgdata:/var/lib/postgresql/data -p 5433:5432 -d postgres
 
 ## Data Validation and Sanitation using express-validator
+
+## Why refres token
+
+- https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/
+- https://stackoverflow.com/questions/38986005/what-is-the-purpose-of-a-refresh-token
