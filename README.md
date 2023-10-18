@@ -21,9 +21,9 @@
 
 - docker run --rm -it -v $(pwd):/usr/src/app -v /usr/src/app/node_modules --env-file $(pwd)/.env -p 3000:3000 -e NODE_ENV=development auth-service:dev
 
-## typeorm setup
+## Typeform setup
 
-- npx typeorm init --database postgres
+- npx Typeform init --database Postgres
 
 ## Docker PostgreSQL
 
@@ -31,7 +31,7 @@
 
 ## Data Validation and Sanitation using express-validator
 
-## Why refres token
+## Why refresh token
 
 - https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/
 - https://stackoverflow.com/questions/38986005/what-is-the-purpose-of-a-refresh-token
