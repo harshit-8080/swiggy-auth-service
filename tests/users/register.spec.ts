@@ -6,6 +6,7 @@ import { AppDataSource } from '../../src/config/data-source';
 // import { truncateTables } from '../utils';
 import { Roles } from '../../src/constants';
 import { isJwtValid } from '../utils';
+import { RefreshToken } from '../../src/entity/RefreshToken';
 
 describe('POST /auth/register', () => {
   let connection: DataSource;
@@ -37,7 +38,9 @@ describe('POST /auth/register', () => {
       };
 
       // Act
-      const response = await request(app).post('/auth/register').send(userData);
+      const response = await request(app)
+        .post('/auth/register')
+        .send(userData);
 
       // Assert
       expect(response.statusCode).toBe(201);
@@ -53,7 +56,9 @@ describe('POST /auth/register', () => {
       };
 
       // Act
-      const response = await request(app).post('/auth/register').send(userData);
+      const response = await request(app)
+        .post('/auth/register')
+        .send(userData);
 
       // Assert
       expect(response.headers['content-type']).toEqual(
@@ -71,14 +76,19 @@ describe('POST /auth/register', () => {
       };
 
       // Act
-      await request(app).post('/auth/register').send(userData);
+      await request(app)
+        .post('/auth/register')
+        .send(userData);
 
       // Assert
-      const userRespository = connection.getRepository(User);
+      const userRespository =
+        connection.getRepository(User);
       const users = await userRespository.find();
 
       expect(users).toHaveLength(1);
-      expect(users[0].firstName).toEqual(userData.firstName);
+      expect(users[0].firstName).toEqual(
+        userData.firstName,
+      );
       expect(users[0].lastName).toEqual(userData.lastName);
       expect(users[0].email).toEqual(userData.email);
     });
@@ -93,10 +103,13 @@ describe('POST /auth/register', () => {
       };
 
       // Act
-      await request(app).post('/auth/register').send(userData);
+      await request(app)
+        .post('/auth/register')
+        .send(userData);
 
       // Assert
-      const userRespository = connection.getRepository(User);
+      const userRespository =
+        connection.getRepository(User);
       const users = await userRespository.find();
 
       expect(users).toHaveLength(1);
@@ -114,10 +127,13 @@ describe('POST /auth/register', () => {
       };
 
       // Act
-      await request(app).post('/auth/register').send(userData);
+      await request(app)
+        .post('/auth/register')
+        .send(userData);
 
       // Assert
-      const userRespository = connection.getRepository(User);
+      const userRespository =
+        connection.getRepository(User);
       const users = await userRespository.find();
 
       expect(users[0].password).not.toBe(userData.password);
@@ -134,11 +150,17 @@ describe('POST /auth/register', () => {
         password: 'secret@123',
       };
 
-      const userRespository = connection.getRepository(User);
-      await userRespository.save({ ...userData, role: Roles.CUSTOMER });
+      const userRespository =
+        connection.getRepository(User);
+      await userRespository.save({
+        ...userData,
+        role: Roles.CUSTOMER,
+      });
 
       // Act
-      const response = await request(app).post('/auth/register').send(userData);
+      const response = await request(app)
+        .post('/auth/register')
+        .send(userData);
       const users = await userRespository.find();
 
       // Assert
@@ -159,7 +181,9 @@ describe('POST /auth/register', () => {
       let refreshToken: string | null = null;
 
       // Act
-      const response = await request(app).post('/auth/register').send(userData);
+      const response = await request(app)
+        .post('/auth/register')
+        .send(userData);
 
       const cookies = response.headers['set-cookie'] || [];
 
@@ -179,6 +203,35 @@ describe('POST /auth/register', () => {
       expect(isJwtValid(accessToken)).toBeTruthy();
       expect(isJwtValid(refreshToken)).toBeTruthy();
     });
+
+    it('should store the refresh token in the database', async () => {
+      // Arrange
+      const userData = {
+        firstName: 'Harshit',
+        lastName: 'Raj',
+        email: 'harshit.new71@gmail.com',
+        password: 'secret@123',
+      };
+
+      // Act
+      const response = await request(app)
+        .post('/auth/register')
+        .send(userData);
+
+      // Assert
+
+      const refreshTokenRepo =
+        connection.getRepository(RefreshToken);
+
+      const token = await refreshTokenRepo
+        .createQueryBuilder('refreshToken')
+        .where('refreshToken.userId=:userId', {
+          userId: response.body.id,
+        })
+        .getMany();
+
+      expect(token).toHaveLength(1);
+    });
   });
 
   describe('Fields are missing and sanitized', () => {
@@ -192,8 +245,11 @@ describe('POST /auth/register', () => {
       };
 
       // Act
-      const response = await request(app).post('/auth/register').send(userData);
-      const userRespository = connection.getRepository(User);
+      const response = await request(app)
+        .post('/auth/register')
+        .send(userData);
+      const userRespository =
+        connection.getRepository(User);
       const users = await userRespository.find();
 
       // Assert
@@ -211,9 +267,12 @@ describe('POST /auth/register', () => {
       };
 
       // Act
-      await request(app).post('/auth/register').send(userData);
+      await request(app)
+        .post('/auth/register')
+        .send(userData);
 
-      const userRespository = connection.getRepository(User);
+      const userRespository =
+        connection.getRepository(User);
       const users = await userRespository.find();
 
       // Assert
