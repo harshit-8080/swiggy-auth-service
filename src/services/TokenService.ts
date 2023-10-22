@@ -37,28 +37,21 @@ export class TokenService {
   }
 
   generateRefreshToken(payload: JwtPayload) {
-    const refreshToken = sign(
-      payload,
-      CONFIG.REFRESH_SECRET_KEY!,
-      {
-        algorithm: 'HS256',
-        expiresIn: '1y',
-        issuer: 'auth-service',
-        jwtid: String(payload.id),
-      },
-    );
+    const refreshToken = sign(payload, CONFIG.REFRESH_SECRET_KEY!, {
+      algorithm: 'HS256',
+      expiresIn: '1y',
+      issuer: 'auth-service',
+      jwtid: String(payload.id),
+    });
 
     return refreshToken;
   }
 
   async persistRefreshToken(user: User) {
-    const newRefreshToken =
-      await this.refreshTokenRepository.save({
-        user: user,
-        expiresAt: new Date(
-          Date.now() + 1000 * 60 * 60 * 24 * 365,
-        ), // 1 Year
-      });
+    const newRefreshToken = await this.refreshTokenRepository.save({
+      user: user,
+      expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365), // 1 Year
+    });
 
     return newRefreshToken;
   }

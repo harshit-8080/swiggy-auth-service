@@ -76,19 +76,14 @@ describe('POST /auth/register', () => {
       };
 
       // Act
-      await request(app)
-        .post('/auth/register')
-        .send(userData);
+      await request(app).post('/auth/register').send(userData);
 
       // Assert
-      const userRespository =
-        connection.getRepository(User);
+      const userRespository = connection.getRepository(User);
       const users = await userRespository.find();
 
       expect(users).toHaveLength(1);
-      expect(users[0].firstName).toEqual(
-        userData.firstName,
-      );
+      expect(users[0].firstName).toEqual(userData.firstName);
       expect(users[0].lastName).toEqual(userData.lastName);
       expect(users[0].email).toEqual(userData.email);
     });
@@ -103,13 +98,10 @@ describe('POST /auth/register', () => {
       };
 
       // Act
-      await request(app)
-        .post('/auth/register')
-        .send(userData);
+      await request(app).post('/auth/register').send(userData);
 
       // Assert
-      const userRespository =
-        connection.getRepository(User);
+      const userRespository = connection.getRepository(User);
       const users = await userRespository.find();
 
       expect(users).toHaveLength(1);
@@ -127,13 +119,10 @@ describe('POST /auth/register', () => {
       };
 
       // Act
-      await request(app)
-        .post('/auth/register')
-        .send(userData);
+      await request(app).post('/auth/register').send(userData);
 
       // Assert
-      const userRespository =
-        connection.getRepository(User);
+      const userRespository = connection.getRepository(User);
       const users = await userRespository.find();
 
       expect(users[0].password).not.toBe(userData.password);
@@ -150,8 +139,7 @@ describe('POST /auth/register', () => {
         password: 'secret@123',
       };
 
-      const userRespository =
-        connection.getRepository(User);
+      const userRespository = connection.getRepository(User);
       await userRespository.save({
         ...userData,
         role: Roles.CUSTOMER,
@@ -220,8 +208,7 @@ describe('POST /auth/register', () => {
 
       // Assert
 
-      const refreshTokenRepo =
-        connection.getRepository(RefreshToken);
+      const refreshTokenRepo = connection.getRepository(RefreshToken);
 
       const token = await refreshTokenRepo
         .createQueryBuilder('refreshToken')
@@ -248,8 +235,7 @@ describe('POST /auth/register', () => {
       const response = await request(app)
         .post('/auth/register')
         .send(userData);
-      const userRespository =
-        connection.getRepository(User);
+      const userRespository = connection.getRepository(User);
       const users = await userRespository.find();
 
       // Assert
@@ -267,12 +253,9 @@ describe('POST /auth/register', () => {
       };
 
       // Act
-      await request(app)
-        .post('/auth/register')
-        .send(userData);
+      await request(app).post('/auth/register').send(userData);
 
-      const userRespository =
-        connection.getRepository(User);
+      const userRespository = connection.getRepository(User);
       const users = await userRespository.find();
 
       // Assert

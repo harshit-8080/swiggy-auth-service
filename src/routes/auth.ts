@@ -15,9 +15,7 @@ const RefreshTokenRepository =
   AppDataSource.getRepository(RefreshToken);
 
 const userService = new UserService(UserRepository);
-const tokenService = new TokenService(
-  RefreshTokenRepository,
-);
+const tokenService = new TokenService(RefreshTokenRepository);
 const authController = new AuthController(
   userService,
   logger,
