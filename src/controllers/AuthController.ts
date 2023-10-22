@@ -21,13 +21,10 @@ export class AuthController {
     // validate request body
     const result = validationResult(req);
     if (!result.isEmpty()) {
-      return res
-        .status(400)
-        .json({ errors: result.array() });
+      return res.status(400).json({ errors: result.array() });
     }
 
-    const { firstName, lastName, email, password } =
-      req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     this.logger.debug('New Request to Create User');
 
@@ -59,11 +56,10 @@ export class AuthController {
       const newRefreshToken =
         await this.tokenService.persistRefreshToken(user);
 
-      const refreshToken =
-        this.tokenService.generateRefreshToken({
-          ...payload,
-          id: String(newRefreshToken.id),
-        });
+      const refreshToken = this.tokenService.generateRefreshToken({
+        ...payload,
+        id: String(newRefreshToken.id),
+      });
 
       res.cookie('refreshToken', refreshToken, {
         domain: 'localhost',

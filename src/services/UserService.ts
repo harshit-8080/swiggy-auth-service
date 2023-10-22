@@ -13,7 +13,10 @@ export class UserService {
   async create({ firstName, lastName, email, password }: CreateUser) {
     // hash the password
     const saltRound: number = 10;
-    const hashedPassword: string = await bcrypt.hash(password, saltRound);
+    const hashedPassword: string = await bcrypt.hash(
+      password,
+      saltRound,
+    );
     const checkForDuplicateUser = await this.userRepository.findOne({
       where: { email },
     });
