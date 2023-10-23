@@ -64,6 +64,8 @@
     "express-validator": "^7.0.1",
     "http-errors": "^2.0.0",
     "jsonwebtoken": "^9.0.2",
+    "mock-jwks": "^1.0.8-preview.0",
+    "nock": "^13.3.6",
     "pg": "^8.4.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "0.3.17",
