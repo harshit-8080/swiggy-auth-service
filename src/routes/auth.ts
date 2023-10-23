@@ -42,4 +42,11 @@ router.post(
     authController.login(req, res, next);
   },
 );
+
+router.get(
+  '/whoAmI',
+  (req: any, res: Response, next: NextFunction) => {
+    authController.whoAmI(req, res, next);
+  },
+);
 export default router;

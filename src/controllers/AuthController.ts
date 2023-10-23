@@ -152,4 +152,13 @@ export class AuthController {
       return;
     }
   }
+
+  async whoAmI(req: RegisterUser, res: Response, next: NextFunction) {
+    try {
+      res.status(200).json({ id: 101 });
+    } catch (error) {
+      next(error);
+      return;
+    }
+  }
 }
