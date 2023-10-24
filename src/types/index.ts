@@ -1,3 +1,5 @@
+import { Request } from 'express';
+
 export interface CreateUser {
   firstName: string;
   lastName: string;
@@ -7,4 +9,15 @@ export interface CreateUser {
 
 export interface RegisterUser extends CreateUser {
   body: CreateUser;
+}
+
+export interface AuthCookie {
+  accessToken: string;
+}
+
+export interface AuthRequest extends Request {
+  auth: {
+    sub: string;
+    role: number;
+  };
 }

@@ -1,7 +1,7 @@
 import { Logger } from 'winston';
 import { UserService } from '../services/UserService';
-import { RegisterUser } from '../types';
-import { Response, NextFunction } from 'express';
+import { AuthRequest, RegisterUser } from '../types';
+import { Request, Response, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
 import { JwtPayload } from 'jsonwebtoken';
 import { TokenService } from '../services/TokenService';
@@ -78,7 +78,7 @@ export class AuthController {
     }
   }
 
-  async login(req: RegisterUser, res: Response, next: NextFunction) {
+  async login(req: Request, res: Response, next: NextFunction) {
     // validate request body
     const result = validationResult(req);
     if (!result.isEmpty()) {
@@ -153,9 +153,12 @@ export class AuthController {
     }
   }
 
-  async whoAmI(req: RegisterUser, res: Response, next: NextFunction) {
+  async whoAmI(req: AuthRequest, res: Response, next: NextFunction) {
     try {
-      res.status(200).json({ id: 101 });
+      const user = await this.userService.findById(
+        Number(req.auth.sub),
+      );
+      res.status(200).json(user);
     } catch (error) {
       next(error);
       return;
