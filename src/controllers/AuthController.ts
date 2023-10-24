@@ -86,6 +86,7 @@ export class AuthController {
     }
 
     try {
+      console.log(req.body);
       const { email, password } = req.body;
       this.logger.debug('new request to login a user', { email });
 
