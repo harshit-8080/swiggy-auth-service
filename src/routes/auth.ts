@@ -1,5 +1,5 @@
 import { AuthController } from '../controllers/AuthController';
-import express, { NextFunction, Response } from 'express';
+import express, { Request, NextFunction, Response } from 'express';
 import { UserService } from '../services/UserService';
 import { AppDataSource } from '../config/data-source';
 import { User } from '../entity/User';
@@ -9,6 +9,8 @@ import loginValidator from '../validators/login-validator';
 import { TokenService } from '../services/TokenService';
 import { RefreshToken } from '../entity/RefreshToken';
 import { CredentialService } from '../services/CredentialService';
+import autheticate from '../middlewares/autheticate';
+import { RegisterUser, AuthRequest } from '../types';
 
 const router = express.Router();
 
@@ -31,22 +33,23 @@ router.post(
   '/register',
   registerValidator,
   (req: any, res: Response, next: NextFunction) => {
-    authController.register(req, res, next);
+    authController.register(req as RegisterUser, res, next);
   },
 );
 
 router.post(
   '/login',
   loginValidator,
-  (req: any, res: Response, next: NextFunction) => {
+  (req: Request, res: Response, next: NextFunction) => {
     authController.login(req, res, next);
   },
 );
 
 router.get(
   '/whoAmI',
-  (req: any, res: Response, next: NextFunction) => {
-    authController.whoAmI(req, res, next);
+  autheticate,
+  (req: Request, res: Response, next: NextFunction) => {
+    authController.whoAmI(req as AuthRequest, res, next);
   },
 );
 export default router;
