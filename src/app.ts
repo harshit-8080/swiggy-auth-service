@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 
+app.use(express.static('public'));
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
@@ -30,7 +31,8 @@ app.use('/auth', authRouter);
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: HttpError, _req: Request, res: Response) => {
   logger.error(err.message);
-  res.status(err.statusCode).json({
+  const statusCode = err.statusCode || err.status || 500;
+  res.status(statusCode).json({
     name: err.name,
     statusCode: err.statusCode,
     message: err.message,
