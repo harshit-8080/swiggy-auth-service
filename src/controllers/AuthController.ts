@@ -71,7 +71,7 @@ export class AuthController {
         httpOnly: true,
       });
 
-      res.status(201).json(user);
+      res.status(201).json({ ...user, password: undefined });
     } catch (error) {
       next(error);
       return;
@@ -158,7 +158,7 @@ export class AuthController {
       const user = await this.userService.findById(
         Number(req.auth.sub),
       );
-      res.status(200).json(user);
+      res.status(200).json({ ...user, password: undefined });
     } catch (error) {
       next(error);
       return;
