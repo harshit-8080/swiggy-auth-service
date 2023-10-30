@@ -170,7 +170,7 @@ export class AuthController {
     try {
       const payload: JwtPayload = {
         sub: req.auth.sub,
-        role: req.auth.sub,
+        role: req.auth.role,
       };
 
       const accessToken =
@@ -182,6 +182,37 @@ export class AuthController {
         maxAge: 1000 * 60 * 60,
         httpOnly: true,
       });
+
+      const user = await this.userService.findById(
+        Number(req.auth.sub),
+      );
+
+      if (!user) {
+        const error = createHttpError(
+          400,
+          'token valid but user not found',
+        );
+        next(error);
+        return;
+      }
+
+      const newRefreshToken =
+        await this.tokenService.persistRefreshToken(user);
+
+      const refreshToken = this.tokenService.generateRefreshToken({
+        ...payload,
+        id: String(newRefreshToken.id),
+      });
+
+      res.cookie('refreshToken', refreshToken, {
+        domain: 'localhost',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60 * 24 * 365,
+        httpOnly: true,
+      });
+
+      this.logger.info('User has been logged in', { id: user.id });
+      res.status(200).json({ id: user.id });
 
       return res.json({
         refreshToken: 'refresh token checked and sent ',
