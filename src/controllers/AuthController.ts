@@ -165,4 +165,30 @@ export class AuthController {
       return;
     }
   }
+
+  async refresh(req: AuthRequest, res: Response, next: NextFunction) {
+    try {
+      const payload: JwtPayload = {
+        sub: req.auth.sub,
+        role: req.auth.sub,
+      };
+
+      const accessToken =
+        this.tokenService.generateAccessToken(payload);
+
+      res.cookie('accessToken', accessToken, {
+        domain: 'localhost',
+        sameSite: 'strict',
+        maxAge: 1000 * 60 * 60,
+        httpOnly: true,
+      });
+
+      return res.json({
+        refreshToken: 'refresh token checked and sent ',
+      });
+    } catch (error) {
+      next(error);
+      return;
+    }
+  }
 }

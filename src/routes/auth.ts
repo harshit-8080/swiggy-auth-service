@@ -11,6 +11,7 @@ import { RefreshToken } from '../entity/RefreshToken';
 import { CredentialService } from '../services/CredentialService';
 import autheticate from '../middlewares/autheticate';
 import { RegisterUser, AuthRequest } from '../types';
+import validateRefreshToken from '../middlewares/validateRefreshToken';
 
 const router = express.Router();
 
@@ -50,6 +51,14 @@ router.get(
   autheticate,
   (req: Request, res: Response, next: NextFunction) => {
     authController.whoAmI(req as AuthRequest, res, next);
+  },
+);
+
+router.post(
+  '/refresh',
+  validateRefreshToken,
+  (req: Request, res: Response, next: NextFunction) => {
+    authController.refresh(req as AuthRequest, res, next);
   },
 );
 export default router;
