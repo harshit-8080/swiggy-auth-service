@@ -196,8 +196,12 @@ export class AuthController {
         return;
       }
 
+      // persist new token
       const newRefreshToken =
         await this.tokenService.persistRefreshToken(user);
+
+      // delete old refresh token
+      await this.tokenService.deleteRefreshToken(Number(req.auth.id));
 
       const refreshToken = this.tokenService.generateRefreshToken({
         ...payload,
@@ -213,10 +217,6 @@ export class AuthController {
 
       this.logger.info('User has been logged in', { id: user.id });
       res.status(200).json({ id: user.id });
-
-      return res.json({
-        refreshToken: 'refresh token checked and sent ',
-      });
     } catch (error) {
       next(error);
       return;
