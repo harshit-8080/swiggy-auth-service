@@ -29,6 +29,14 @@
 
 - docker run --rm --name mernpg-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v projectpgdata:/var/lib/postgresql/data -p 5433:5432 -d postgres
 
+## Create new Migration
+
+- npm run migration-generate -- src/migration/migrations -d src/config/data-source.ts
+
+## Run Migration Files
+
+- npm run migration-run -- -d src/config/data-source.ts
+
 ## Data Validation and Sanitation using express-validator
 
 ## Why refresh token
@@ -36,9 +44,9 @@
 - https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/
 - https://stackoverflow.com/questions/38986005/what-is-the-purpose-of-a-refresh-token
 
-The code you provided seems to be using two packages: 
+The code you provided seems to be using two packages:
 
-express-jwt and jwks-rsa. 
+express-jwt and jwks-rsa.
 
 These packages are typically used in Node.js applications, especially in the context of securing and authenticating APIs with JSON Web Tokens (JWT).
 
@@ -78,19 +86,13 @@ In summary, these two packages work together to provide secure JWT-based authent
 The express-jwt middleware checks the validity of JWTs, while the jwks-rsa package helps manage the public keys required for JWT verification.
 This setup is commonly used in APIs to authenticate and authorize users based on JWT tokens.
 
-
-
-
-
-
---------------------------------------------------------------------------------------------
+---
 
 # RSA_PEM_TO_JWK
 
-The provided code is a JavaScript program that reads an RSA private key in PEM (Privacy Enhanced Mail) format from a file, 
+The provided code is a JavaScript program that reads an RSA private key in PEM (Privacy Enhanced Mail) format from a file,
 
-converts it to a JSON Web Key (JWK) format, and specifies that the JWK should be used for signing (with the "use" parameter set to 'sig'). 
-
+converts it to a JSON Web Key (JWK) format, and specifies that the JWK should be used for signing (with the "use" parameter set to 'sig').
 
 Let's break down the code step by step:
 
@@ -100,14 +102,12 @@ The code imports the 'fs' (file system) module, which is a built-in Node.js modu
 
 It also imports the 'rsa-pem-to-jwk' module, which is presumably a third-party library for converting RSA keys in PEM format to JWK format.
 
-
 Reading the Private Key:
 
-The code uses the 'fs' module to read the contents of a file named 'private.pem' located in the './certs/' directory. 
+The code uses the 'fs' module to read the contents of a file named 'private.pem' located in the './certs/' directory.
 
 This file is assumed to contain the RSA private key in PEM format.
 The contents of the private key file are stored in the 'privateKey' variable.
-
 
 Converting the RSA Private Key to JWK:
 
@@ -117,40 +117,32 @@ The first argument is the RSA private key in PEM format, which is stored in the 
 
 The second argument is an options object, which specifies that the JWK should be used for signing ('use' is set to 'sig').
 
-
 Storing the JWK:
 
 The resulting JWK is stored in the 'jwk' variable after the conversion is complete.
 
-
---------------------------------------------------------------------------------------------
-
-
+---
 
 Now, let's discuss why it's important to convert an RSA PEM key to a JWK:
 
-JSON Web Keys (JWKs) are a standard way of representing cryptographic keys, including public and private keys, in a JSON format. 
-
+JSON Web Keys (JWKs) are a standard way of representing cryptographic keys, including public and private keys, in a JSON format.
 
 Converting an RSA PEM key to a JWK has several advantages:
 
-Interoperability: 
-    JWK is a standard format that can be used across different programming languages and platforms. 
-    This makes it easier to exchange keys between systems that may not use the same key representation.
+Interoperability:
+JWK is a standard format that can be used across different programming languages and platforms.
+This makes it easier to exchange keys between systems that may not use the same key representation.
 
+Security:
+JWKs can be used with modern web technologies and standards like JSON Web Tokens (JWTs) and OAuth 2.0.
+These standards often require the use of JWKs for key management, and using JWKs can help ensure proper security practices are followed.
 
-Security: 
-    JWKs can be used with modern web technologies and standards like JSON Web Tokens (JWTs) and OAuth 2.0. 
-    These standards often require the use of JWKs for key management, and using JWKs can help ensure proper security practices are followed.
+Ease of Use:
+JWKs are represented as JSON objects, which are easier to work with in modern web applications that often rely on JSON for data interchange.
+This simplifies key handling and integration into various software components.
 
-
-Ease of Use: 
-    JWKs are represented as JSON objects, which are easier to work with in modern web applications that often rely on JSON for data interchange.
-     This simplifies key handling and integration into various software components.
-
-
-Algorithm and Use Specification: 
-    JWKs allow you to specify the intended use of the key, such as 'sig' (signing) or 'enc' (encryption), and also specify the cryptographic algorithm in use. 
-    This information can be crucial for security and compatibility when using the key for specific purposes.
+Algorithm and Use Specification:
+JWKs allow you to specify the intended use of the key, such as 'sig' (signing) or 'enc' (encryption), and also specify the cryptographic algorithm in use.
+This information can be crucial for security and compatibility when using the key for specific purposes.
 
 In the provided code, the conversion to JWK with the 'use' parameter set to 'sig' indicates that the key is intended for signing purposes, which is a common requirement in applications like authentication and data integrity verification.
