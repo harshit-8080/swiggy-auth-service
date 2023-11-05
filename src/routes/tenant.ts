@@ -31,6 +31,7 @@ router.post(
 router.get(
   '/',
   autheticate,
+  canAccess([Roles.ADMIN]),
   (req: Request, res: Response, next: NextFunction) => {
     tenantController.getTenants(res, next);
   },
@@ -39,6 +40,7 @@ router.get(
 router.get(
   '/:tenantId',
   autheticate,
+  canAccess([Roles.ADMIN]),
   tenantIdValidator,
   (req: Request, res: Response, next: NextFunction) => {
     tenantController.getTenant(req, res, next);
@@ -48,6 +50,7 @@ router.get(
 router.delete(
   '/:tenantId',
   autheticate,
+  canAccess([Roles.ADMIN]),
   (req: Request, res: Response, next: NextFunction) => {
     tenantController.deleteTenant(req, res, next);
   },
@@ -56,6 +59,7 @@ router.delete(
 router.patch(
   '/:tenantId',
   autheticate,
+  canAccess([Roles.ADMIN]),
   updateValidator,
   (req: Request, res: Response, next: NextFunction) => {
     tenantController.updateTenant(req, res, next);
