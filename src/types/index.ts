@@ -31,3 +31,8 @@ export interface ITenant {
 export interface CreateTenantRequest extends Request {
   body: ITenant;
 }
+
+export interface IUpdate {
+  name?: string;
+  address?: string;
+}
