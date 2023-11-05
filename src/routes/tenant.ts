@@ -8,6 +8,7 @@ import { logger } from '../config/logger';
 import autheticate from '../middlewares/autheticate';
 import { canAccess } from '../middlewares/canAccess';
 import { Roles } from '../constants';
+import createTenantValidator from '../validators/create-tenant-validator';
 
 const router = express.Router();
 
@@ -19,6 +20,7 @@ router.post(
   '/',
   autheticate,
   canAccess([Roles.ADMIN]),
+  createTenantValidator,
   (req: Request, res: Response, next: NextFunction) => {
     tenantController.create(req as CreateTenantRequest, res, next);
   },
