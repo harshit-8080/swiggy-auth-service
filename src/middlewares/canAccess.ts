@@ -1,9 +1,9 @@
-import { Request, NextFunction } from 'express';
+import { Request, NextFunction, Response } from 'express';
 import { AuthRequest } from '../types';
 import createHttpError from 'http-errors';
 
 export const canAccess = (roles: string[]) => {
-  return (req: Request, next: NextFunction) => {
+  return (req: Request, res: Response, next: NextFunction) => {
     const _req = req as AuthRequest;
     const roleFromToken = _req.auth.role;
 
@@ -14,6 +14,7 @@ export const canAccess = (roles: string[]) => {
       );
 
       next(error);
+      res.json({ error: error });
       return;
     }
     next();
