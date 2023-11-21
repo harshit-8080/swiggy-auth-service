@@ -39,6 +39,7 @@ export class AuthController {
         email,
         password,
         role: Roles.CUSTOMER,
+        tenantId: '',
       });
 
       this.logger.info('New User created successfully');
@@ -92,7 +93,8 @@ export class AuthController {
       const { email, password } = req.body;
       this.logger.debug('new request to login a user', { email });
 
-      const user = await this.userService.findByEmail(email);
+      const user =
+        await this.userService.findByEmailWithPassword(email);
 
       if (!user) {
         const error = createHttpError(
