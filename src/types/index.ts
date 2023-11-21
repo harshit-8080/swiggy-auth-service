@@ -41,3 +41,13 @@ export interface IUpdate {
 export interface CreateUserRequest extends Request {
   body: CreateUser;
 }
+
+export interface LimitedUserData {
+  firstName: string;
+  lastName: string;
+  role: string;
+}
+
+export interface UpdateUserRequest extends Request {
+  body: LimitedUserData;
+}
