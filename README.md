@@ -33,6 +33,10 @@
 
 - npm run migration-generate -- src/migration/migrations -d src/config/data-source.ts
 
+## Create new empty Migration File
+
+- npm run migration-new --name add_refreshtoken_cascade
+
 ## Run Migration Files
 
 - npm run migration-run -- -d src/config/data-source.ts
