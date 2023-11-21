@@ -5,6 +5,7 @@ export interface CreateUser {
   lastName: string;
   email: string;
   password: string;
+  tenantId: string;
   role: string;
 }
 

@@ -40,7 +40,7 @@ router.patch(
 router.get(
   '/',
   autheticate,
-  canAccess([Roles.ADMIN]),
+  // canAccess([Roles.ADMIN]),
   (req, res, next) => {
     userController.getAll(req, res, next);
   },
@@ -58,7 +58,7 @@ router.get(
 router.delete(
   '/:id',
   autheticate,
-  canAccess([Roles.ADMIN]),
+  // canAccess([Roles.ADMIN]),
   (req, res, next) => {
     userController.destroy(req, res, next);
   },

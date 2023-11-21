@@ -15,6 +15,7 @@ export class UserService {
     email,
     password,
     role,
+    tenantId,
   }: CreateUser) {
     // hash the password
     const saltRound: number = 10;
@@ -36,6 +37,7 @@ export class UserService {
         email,
         password: hashedPassword,
         role: role,
+        tenantId: tenantId ? { id: tenantId } : tenantId,
       });
     } catch (error) {
       const err = createHttpError(500, 'Internal Server Error');
@@ -46,6 +48,22 @@ export class UserService {
   async findByEmail(email: string) {
     const user = await this.userRepository.findOne({
       where: { email },
+    });
+
+    return user;
+  }
+
+  async findByEmailWithPassword(email: string) {
+    const user = await this.userRepository.findOne({
+      where: { email },
+      select: [
+        'id',
+        'firstName',
+        'lastName',
+        'email',
+        'role',
+        'password',
+      ],
     });
 
     return user;
