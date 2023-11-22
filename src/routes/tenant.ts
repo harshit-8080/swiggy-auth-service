@@ -28,14 +28,9 @@ router.post(
   },
 );
 
-router.get(
-  '/',
-  autheticate,
-  canAccess([Roles.ADMIN]),
-  (req: Request, res: Response, next: NextFunction) => {
-    tenantController.getTenants(res, next);
-  },
-);
+router.get('/', (req: Request, res: Response, next: NextFunction) => {
+  tenantController.getTenants(res, next);
+});
 
 router.get(
   '/:tenantId',
