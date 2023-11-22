@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc",
     "dev": "cross-env NODE_ENV=dev nodemon server.ts",
     "format": "prettier .",
     "format:check": "npm run format -- --check",

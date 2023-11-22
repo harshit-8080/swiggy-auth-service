@@ -6,11 +6,13 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "outDir": "./build",
+    "rootDir": "./",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "strict": true,
     "strictPropertyInitialization": false
-  }
+  },
+  "exclude": ["**/*.spec.ts", "tests"]
 }
