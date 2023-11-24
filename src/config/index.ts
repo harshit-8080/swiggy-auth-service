@@ -20,6 +20,7 @@ const {
   NODE_ENV,
   REFRESH_SECRET_KEY,
   JWKS_URI,
+  PRIVATE_KEY,
 } = process.env;
 
 export const CONFIG = {
@@ -34,4 +35,5 @@ export const CONFIG = {
   NODE_ENV,
   REFRESH_SECRET_KEY,
   JWKS_URI,
+  PRIVATE_KEY,
 };
