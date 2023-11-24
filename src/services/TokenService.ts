@@ -1,6 +1,4 @@
 import { JwtPayload, sign } from 'jsonwebtoken';
-import path from 'path';
-import fs from 'fs';
 import createHttpError from 'http-errors';
 import { CONFIG } from '../config/';
 import { RefreshToken } from '../entity/RefreshToken';
@@ -15,11 +13,13 @@ export class TokenService {
   }
 
   generateAccessToken(payload: JwtPayload) {
-    let privateKey: Buffer;
+    let privateKey: string;
+    if (!CONFIG.PRIVATE_KEY) {
+      const error = createHttpError(500, 'Could find private key');
+      throw error;
+    }
     try {
-      privateKey = fs.readFileSync(
-        path.resolve(__dirname, '../../certs/private.pem'),
-      );
+      privateKey = CONFIG.PRIVATE_KEY;
     } catch (err) {
       const error = createHttpError(
         500,
