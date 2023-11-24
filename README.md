@@ -17,17 +17,21 @@
 
 ## App. Config Setup
 
-## Docker Run
+## Docker Run Dev
 
 - docker run --rm -it -v $(pwd):/usr/src/app -v /usr/src/app/node_modules --env-file $(pwd)/.env -p 3000:3000 -e NODE_ENV=development auth-service:dev
 
-## Typeform setup
+## Docker Build Image - Prod
 
-- npx Typeform init --database Postgres
+- docker build -t auth-service-test-prod -f docker/prod/Dockerfile .
 
 ## Docker PostgreSQL
 
 - docker run --rm --name mernpg-container -e POSTGRES_USER=root -e POSTGRES_PASSWORD=root -v projectpgdata:/var/lib/postgresql/data -p 5433:5432 -d postgres
+
+## typeorm setup
+
+- npx typeorm init --database postgres
 
 ## Create new Migration
 
