@@ -152,3 +152,5 @@ Database Flexibility: Developers can switch between different database systems w
 Reduced Development Time: With its intuitive querying and data handling methods, TypeORM can significantly reduce the time spent on database-related tasks during development.
 
 TypeORM is particularly useful in projects where TypeScript or JavaScript is the primary language and where maintaining a clear and consistent database structure is essential. It streamlines database interactions, providing a robust and scalable solution for modern web applications.
+
+## Added Github actions
