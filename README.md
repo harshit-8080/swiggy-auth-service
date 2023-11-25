@@ -1,12 +1,5 @@
 # swiggy-auth-service
 
-## packages
-
-- npm install -D typescript ts-node @types/node nodemon
-- npx tsc --init
-- npm install --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint typescript
-- npm i -D eslint-config-prettier
-
 ## GIT HOOK SETUP
 
 - npm i -D husky
@@ -46,6 +39,11 @@
 - npm run migration-run -- -d src/config/data-source.ts
 
 ## Data Validation and Sanitation using express-validator
+
+- npm install -D typescript ts-node @types/node nodemon
+- npx tsc --init
+- npm install --save-dev @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint typescript
+- npm i -D eslint-config-prettier
 
 ## Why refresh token
 
