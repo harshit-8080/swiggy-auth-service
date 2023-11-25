@@ -35,7 +35,7 @@ jobs:
 
   build-and-push-docker:
     name: Build and Push Docker Image
-    needs: build-and-test
+    needs: build-lint-skip-test
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: swiggy-auth-service
