@@ -1,4 +1,9 @@
-import express, { Request, NextFunction, Response } from 'express';
+import express, {
+  Request,
+  NextFunction,
+  Response,
+  RequestHandler,
+} from 'express';
 import { AppDataSource } from '../config/data-source';
 import { CreateUserRequest, UpdateUserRequest } from '../types';
 import { logger } from '../config/logger';
@@ -23,7 +28,11 @@ router.post(
   registerValidator,
   canAccess([Roles.ADMIN]),
   (req: Request, res: Response, next: NextFunction) => {
-    userController.create(req as CreateUserRequest, res, next);
+    userController.create(
+      req as CreateUserRequest,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 
@@ -33,7 +42,11 @@ router.patch(
   canAccess([Roles.ADMIN]),
   updateUserValidator,
   (req: UpdateUserRequest, res: Response, next: NextFunction) => {
-    userController.update(req, res, next);
+    userController.update(
+      req,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 
@@ -42,7 +55,11 @@ router.get(
   autheticate,
   // canAccess([Roles.ADMIN]),
   (req, res, next) => {
-    userController.getAll(req, res, next);
+    userController.getAll(
+      req,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 
@@ -51,7 +68,11 @@ router.get(
   autheticate,
   canAccess([Roles.ADMIN]),
   (req, res, next) => {
-    userController.getOne(req, res, next);
+    userController.getOne(
+      req,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 
@@ -60,7 +81,11 @@ router.delete(
   autheticate,
   // canAccess([Roles.ADMIN]),
   (req, res, next) => {
-    userController.destroy(req, res, next);
+    userController.destroy(
+      req,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 
