@@ -38,7 +38,7 @@ jobs:
     needs: build-lint-skip-test
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: swiggy-auth-service
+      IMAGE_NAME: harshitraj71/swiggy-auth-service
       IMAGE_TAG: build-${{ github.run_number }}
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     steps:
