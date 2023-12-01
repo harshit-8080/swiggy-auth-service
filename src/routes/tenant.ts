@@ -1,4 +1,9 @@
-import express, { Request, NextFunction, Response } from 'express';
+import express, {
+  Request,
+  NextFunction,
+  Response,
+  RequestHandler,
+} from 'express';
 import { TenantController } from '../controllers/TenantController';
 import { TenantService } from '../services/TenantService';
 import { Tenant } from '../entity/Tenant';
@@ -24,12 +29,16 @@ router.post(
   canAccess([Roles.ADMIN]),
   createTenantValidator,
   (req: Request, res: Response, next: NextFunction) => {
-    tenantController.create(req as CreateTenantRequest, res, next);
+    tenantController.create(
+      req as CreateTenantRequest,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
-  tenantController.getTenants(res, next);
+  tenantController.getTenants(res, next) as unknown as RequestHandler;
 });
 
 router.get(
@@ -38,7 +47,11 @@ router.get(
   canAccess([Roles.ADMIN]),
   tenantIdValidator,
   (req: Request, res: Response, next: NextFunction) => {
-    tenantController.getTenant(req, res, next);
+    tenantController.getTenant(
+      req,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 
@@ -47,7 +60,11 @@ router.delete(
   autheticate,
   canAccess([Roles.ADMIN]),
   (req: Request, res: Response, next: NextFunction) => {
-    tenantController.deleteTenant(req, res, next);
+    tenantController.deleteTenant(
+      req,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 
@@ -57,7 +74,11 @@ router.patch(
   canAccess([Roles.ADMIN]),
   updateValidator,
   (req: Request, res: Response, next: NextFunction) => {
-    tenantController.updateTenant(req, res, next);
+    tenantController.updateTenant(
+      req,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 

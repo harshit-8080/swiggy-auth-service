@@ -1,5 +1,10 @@
 import { AuthController } from '../controllers/AuthController';
-import express, { Request, NextFunction, Response } from 'express';
+import express, {
+  Request,
+  NextFunction,
+  Response,
+  RequestHandler,
+} from 'express';
 import { UserService } from '../services/UserService';
 import { AppDataSource } from '../config/data-source';
 import { User } from '../entity/User';
@@ -35,7 +40,11 @@ router.post(
   '/register',
   registerValidator,
   (req: any, res: Response, next: NextFunction) => {
-    authController.register(req as RegisterUser, res, next);
+    authController.register(
+      req as RegisterUser,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 
@@ -43,7 +52,7 @@ router.post(
   '/login',
   loginValidator,
   (req: Request, res: Response, next: NextFunction) => {
-    authController.login(req, res, next);
+    authController.login(req, res, next) as unknown as RequestHandler;
   },
 );
 
@@ -51,7 +60,11 @@ router.get(
   '/whoAmI',
   autheticate,
   (req: Request, res: Response, next: NextFunction) => {
-    authController.whoAmI(req as AuthRequest, res, next);
+    authController.whoAmI(
+      req as AuthRequest,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 
@@ -59,7 +72,11 @@ router.post(
   '/refresh',
   validateRefreshToken,
   (req: Request, res: Response, next: NextFunction) => {
-    authController.refresh(req as AuthRequest, res, next);
+    authController.refresh(
+      req as AuthRequest,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 
@@ -67,7 +84,11 @@ router.get(
   '/logout',
   parseRefreshToken,
   (req: Request, res: Response, next: NextFunction) => {
-    authController.logout(req as AuthRequest, res, next);
+    authController.logout(
+      req as AuthRequest,
+      res,
+      next,
+    ) as unknown as RequestHandler;
   },
 );
 export default router;

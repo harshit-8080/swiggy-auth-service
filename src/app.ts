@@ -1,8 +1,7 @@
 import 'reflect-metadata';
-import express, { NextFunction, Request, Response } from 'express';
+import express, { Request, RequestHandler, Response } from 'express';
 import cors from 'cors';
 import { HttpError } from 'http-errors';
-import createError from 'http-errors';
 import { logger } from './config/logger';
 import authRouter from './routes/auth';
 import tenantRouter from './routes/tenant';
@@ -16,17 +15,11 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
 
-app.get('/', async (req: Request, res: Response) => {
-  return res.status(200).json({ response: 'Home RouteE' });
+app.get('/', (req: Request, res: Response) => {
+  res
+    .status(200)
+    .json({ response: 'Home RouteE' }) as unknown as RequestHandler;
 });
-
-app.get(
-  '/test/error',
-  async (_req: Request, _res: Response, next: NextFunction) => {
-    const err = createError(401, 'Please check your access ');
-    return next(err);
-  },
-);
 
 app.use('/auth', authRouter);
 app.use('/tenants', tenantRouter);
